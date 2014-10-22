@@ -1,2 +1,2 @@
-TECS
+This is TECS project.
 ====
