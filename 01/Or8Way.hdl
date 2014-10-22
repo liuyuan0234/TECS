@@ -1,0 +1,43 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or8Way.hdl
+
+/**
+ * 8-way or gate: out = in[0] or in[1] or ... or in[7].
+ */
+
+CHIP Or8Way {
+    IN in[8];
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+	Nand(a = in[0], b = in[0], out = noti0);
+	Nand(a = in[1], b = in[1], out = noti1);
+	Nand(a = noti0, b = noti1, out = or01);
+	
+	Nand(a = or01, b = or01, out = not01);
+	Nand(a = in[2], b = in[2], out = noti2);
+	Nand(a = not01, b = noti2, out = or02);
+	
+	Nand(a = or02, b = or02, out = not02);
+	Nand(a = in[3], b = in[3], out = noti3);
+	Nand(a = not02, b = noti3, out = or03);
+	
+	Nand(a = or03, b = or03, out = not03);
+	Nand(a = in[4], b = in[4], out = noti4);
+	Nand(a = not03, b = noti4, out = or04);
+	
+	Nand(a = or04, b = or04, out = not04);
+	Nand(a = in[5], b = in[5], out = noti5);
+	Nand(a = not04, b = noti5, out = or05);
+	
+	Nand(a = or05, b = or05, out = not05);
+	Nand(a = in[6], b = in[6], out = noti6);
+	Nand(a = not05, b = noti5, out = or06);
+	
+	Nand(a = or06, b = or06, out = not06);
+	Nand(a = in[7], b = in[7], out = noti7);
+	Nand(a = not06, b = noti7, out = out);
+}

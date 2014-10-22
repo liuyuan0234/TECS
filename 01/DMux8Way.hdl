@@ -1,0 +1,60 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/DMux8Way.hdl
+
+/**
+ * 8-way demultiplexor.
+ * {a,b,c,d,e,f,g,h} = {in,0,0,0,0,0,0,0} if sel==000
+ *                     {0,in,0,0,0,0,0,0} if sel==001
+ *                     etc.
+ *                     {0,0,0,0,0,0,0,in} if sel==111
+ */
+
+
+CHIP DMux8Way {
+    IN in, sel[3];
+    OUT a, b, c, d, e, f, g, h;
+
+    PARTS:
+    // Put your code here:
+	Nand(a = sel[0], b = sel[0], out = nandns0);
+	Nand(a = sel[1], b = sel[1], out = nandns1);
+	Nand(a = sel[2], b = sel[2], out = nandns2);
+	
+	Nand(a = in, b = nandns0, out = nandins0);
+	Nand(a = nandins0, b = nandins0, out = andins0);
+	Nand(a = andins0, b = nandns1, out = nandins0ns1);
+	Nand(a = nandins0ns1, b = nandins0ns1, out = andins0ns1);
+	Nand(a = andins0ns1, b = nandns2, out = nandins0ns1ns2);
+	Nand(a = nandins0ns1ns2, b = nandins0ns1ns2, out = a);
+	
+	Nand(a = in, b = sel[0], out = nandis0);
+	Nand(a = nandis0, b = nandis0, out = andis0);
+	Nand(a = andis0, b = nandns1, out = nandis0ns1);
+	Nand(a = nandis0ns1, b = nandis0ns1, out = andis0ns1);
+	Nand(a = andis0ns1, b = nandns2, out = nandis0ns1ns2);
+	Nand(a = nandis0ns1ns2, b = nandis0ns1ns2, out = b);
+	
+	Nand(a = andins0, b = sel[1], out = nandins0s1);
+	Nand(a = nandins0s1, b = nandins0s1, out = andins0s1);
+	Nand(a = andins0s1, b = nandns2, out = nandins0s1ns2);
+	Nand(a = nandins0s1ns2, b = nandins0s1ns2, out = c);
+	
+	Nand(a = andis0, b = sel[1], out = nandis0s1);
+	Nand(a = nandis0s1, b = nandis0s1, out = andis0s1);
+	Nand(a = andis0s1, b = nandns2, out = nandis0s1ns2);
+	Nand(a = nandis0s1ns2, b = nandis0s1ns2, out = d);
+	
+	Nand(a = andins0ns1, b = sel[2], out = nandins0ns1s2);
+	Nand(a = nandins0ns1s2, b = nandins0ns1s2, out = e);
+	
+	Nand(a = andis0ns1, b = sel[2], out = nandis0ns1s2);
+	Nand(a = nandis0ns1s2, b = nandis0ns1s2, out = f);
+	
+	Nand(a = andins0s1, b = sel[2], out = nandins0s1s2);
+	Nand(a = nandins0s1s2, b = nandins0s1s2, out = g);
+	
+	Nand(a = andis0s1, b = sel[2], out = nandis0s1s2);
+	Nand(a = nandis0s1s2, b = nandis0s1s2, out = h);
+}
