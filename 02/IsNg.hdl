@@ -1,0 +1,9 @@
+CHIP IsNg {
+    IN in[16];
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+	And16(a = in, b[0..14] = false, b[15] = true, out = out1);
+	Or16Way(in = out1, out = out);
+}
